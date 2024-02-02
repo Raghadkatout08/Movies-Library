@@ -49,24 +49,24 @@ To run this project locally, follow these steps:
 Movie Library app displays the latest movie releases. Users can explore in-depth details about movies like “Spider-Man” Including title, path and overview. In addition, the app provides a personalized and enjoyable user journey through their favorite content.
 
 * Project Features In V1.0*
-### Home Page: `/`
-
-    "title": "Spider-Man: No Way Home",
-
-    "poster_path": "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+    ### Home Page: `/`
     
-    "overview": "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man."
-
-### Favorite Page: `/favorite`
-    Welocming Message: "Welcome to Favorite Page"
-
-
-### Error Handling_500:
-
-    status: 500
-    responseText: Sorry, Something Went Wrong
-
-### Error Handling_404:
-
-    status: 404
-    responseText: Page Not Found Error
+        "title": "Spider-Man: No Way Home",
+    
+        "poster_path": "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+        
+        "overview": "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man."
+    
+    ### Favorite Page: `/favorite`
+        Welocming Message: "Welcome to Favorite Page"
+    
+    
+    ### Error Handling_500:
+    
+        status: 500
+        responseText: Sorry, Something Went Wrong
+    
+    ### Error Handling_404:
+    
+        status: 404
+        responseText: Page Not Found Error
