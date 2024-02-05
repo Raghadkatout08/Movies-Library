@@ -6,10 +6,12 @@
 
 <!-- WRRC -->
 ## WRRC
-![WRRC](./assets/WRRC.png)
+![WRRC](./assets/WRRC_withAPI.png)
+
+<!-- ![WRRC](./assets/WRRC.png)
 <!-- WRRC Example -->
-* WRRC Example:
-![WRRC Example](./assets/Example_WRRC.png)
+<!-- * WRRC Example:
+![WRRC Example](./assets/Example_WRRC.png) --> 
 
 ## Overview 
     This project is a movie app that allows users to check the latest movies based on categories.
@@ -28,45 +30,12 @@ To run this project locally, follow these steps:
 
 3. Initialize the project:
     ``` 
-    npm init -y 
+    npm install
     ```
-4. Create an  ```server.js``` file, (name is optional).
+4. Run to Your server  ``` node server.js``` 
 
-5. Install Express Package: 
-    ``` 
-    npm install express 
-    ```
-
-6. Run the server using nodemon:
-    ``` 
-    npm install nodemon 
-    node server.js
-    ```
 
 
 ## Project Features
 <!-- The features included in this app -->
 Movie Library app displays the latest movie releases. Users can explore in-depth details about movies like “Spider-Man” Including title, path and overview. In addition, the app provides a personalized and enjoyable user journey through their favorite content.
-
-* Project Features In V1.0*
-    ### Home Page: `/`
-    
-        "title": "Spider-Man: No Way Home",
-    
-        "poster_path": "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
-        
-        "overview": "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man."
-    
-    ### Favorite Page: `/favorite`
-        Welocming Message: "Welcome to Favorite Page"
-    
-    
-    ### Error Handling_500:
-    
-        status: 500
-        responseText: Sorry, Something Went Wrong
-    
-    ### Error Handling_404:
-    
-        status: 404
-        responseText: Page Not Found Error
