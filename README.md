@@ -38,5 +38,4 @@ To run this project locally, follow these steps:
 
 ## Project Features
 <!-- The features included in this app -->
-
-```Movie Library app displays the latest movie releases. Users can explore in-depth details about movies like “Spider-Man” Including title, path and overview. In addition, the app provides a personalized and enjoyable user journey through their favorite content.```
+Movie Library app displays the latest movie releases. Users can explore in-depth details about movies like “Spider-Man” Including title, path and overview. In addition, the app provides a personalized and enjoyable user journey through their favorite content.
