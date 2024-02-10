@@ -1,15 +1,20 @@
 'use strict'
 
-const exprss = require('express')
-require('dotenv').config()
-const axios = require('axios')
-const cors = require('cors')
-
-const app = exprss();
-const port = process.env.PORT;
+const express = require('express');
+const app = express();
+require('dotenv').config();
+const axios = require('axios');
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+const cors = require('cors');
+app.use(cors());
+const port = process.env.PORT || 3001;
 const api_key = process.env.API_KEY;
+const { Client } = require('pg');
+const url = `postgres://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@localhost:5432/movies_library`;
+const client = new Client(url)
 
-app.use(cors())
 
 //routing
 //app.METHOD(PATH , HANDLER)
@@ -19,10 +24,9 @@ app.get('/trending', trendingHandler)
 app.get('/search', searchTtrinfHandler)
 app.get('/videos', videosHandler)
 app.get('/list', listHandler)
+app.post('/addMovie', addMovieHandler)
+app.get('/getMovies', getMoviesHandler)
 
-
-
-// app.get('/mediaType', mediaTypeHandler)
 
 
 const homeData = require('./Movie Data/data.json');
@@ -118,8 +122,7 @@ function searchTtrinfHandler(req, res) {
 
 //videos Page
 //http://localhost:3001/videos
-function videosHandler(req,res)
-{
+function videosHandler(req, res) {
     let url = `https://api.themoviedb.org/3/movie/157336/videos?api_key=${api_key}&language=en-US&query=The&page=2`
     axios.get(url)
         .then(result => {
@@ -147,29 +150,64 @@ function videosHandler(req,res)
 
 //list Page
 //http://localhost:3001/list
-function listHandler(req,res)
-{
+function listHandler(req, res) {
     let url = `https://api.themoviedb.org/3/movie/157336/lists?api_key=${api_key}&language=en-US&query=The&page=2`
     axios.get(url)
-    .then(result => {
-        console.log(result.data)
-        const lists = result.data.lists || result.data.results || [];
+        .then(result => {
+            console.log(result.data)
+            const lists = result.data.lists || result.data.results || [];
 
-        if (Array.isArray(lists)) {
-            let listData = lists.map(list => {
-                return new List(list.name, list.description)
-            })
-            res.json(listData)
-        } else {
-            console.log('Invalid Response format from the API')
-            res.status(500).send('Sorry, Something Went Wrong')
-        }
+            if (Array.isArray(lists)) {
+                let listData = lists.map(list => {
+                    return new List(list.name, list.description)
+                })
+                res.json(listData)
+            } else {
+                console.log('Invalid Response format from the API')
+                res.status(500).send('Sorry, Something Went Wrong')
+            }
 
 
-    })
+        })
         .catch(error => {
             console.log(error)
             res.status(500).send('Sorry, Something Went Wrong')
+        })
+}
+
+//add Movie Page
+//http://localhost:3001/addMovie
+function addMovieHandler(req, res) {
+    console.log(req.body)
+
+    const { id, title, release_date, poster_path, overview } = req.body;
+
+    const sql = 'INSERT INTO movies_trending(id, title, release_date, poster_path, overview) VALUES ($1, $2, $3, $4, $5) RETURNING *';
+    const values = [id, title, release_date, poster_path, overview];
+
+    client.query(sql, values)
+        .then((result) => {
+            console.log(result.rows)
+            res.status(201).json(result.rows);
+        })
+        .catch((error) => {
+            console.error('Error executing query:', error);
+            res.status(500).send('Internal Server Error')
+        })
+}
+
+//get Movies Page
+//http://localhost:3001/getMovies
+function getMoviesHandler(req, res) {
+    let sql = 'SELECT * FROM movies_trending';
+    client.query(sql)
+        .then((result) => {
+            const data = result.rows
+            res.json(data)
+        })
+        .catch((error) => {
+            console.error('Error executing query:', error);
+            res.status(500).send('Internal Server Error')
         })
 }
 
@@ -203,7 +241,12 @@ app.use((err, req, res, next) => {
     );
 });
 
-
-app.listen(port, () => {
-    console.log(`listening on port ${port}`)
-})
+client.connect()
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`listening on port ${port}`)
+        })
+    })
+    .catch((error) => {
+        console.error('Error Connection to database:', error);
+    })

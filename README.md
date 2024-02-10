@@ -6,7 +6,7 @@
 
 <!-- WRRC -->
 ## WRRC
-![WRRC](./assets/WRRC_withAPI.png)
+![WRRC](./assets/WRRC_WithDB.png)
 
 <!-- ![WRRC](./assets/WRRC.png)
 <!-- WRRC Example -->
@@ -30,7 +30,7 @@ To run this project locally, follow these steps:
 
 3. Initialize the project:
     ``` 
-    npm install
+    npm install express dotenv cors nodemon pg body-parser
     ```
 4. Run to Your server  ``` node server.js``` 
 
