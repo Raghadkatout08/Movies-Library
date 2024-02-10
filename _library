@@ -1,0 +1,14 @@
+                                    List of databases
+      Name      |    Owner    | Encoding | Collate | Ctype |      Access privileges      
+----------------+-------------+----------+---------+-------+-----------------------------
+ movies_library | ragadkatout | UTF8     | C       | C     | 
+ postgres       | ragadkatout | UTF8     | C       | C     | 
+ ragadkatout    | ragadkatout | UTF8     | C       | C     | 
+ school         | ragadkatout | UTF8     | C       | C     | 
+ template0      | ragadkatout | UTF8     | C       | C     | =c/ragadkatout             +
+                |             |          |         |       | ragadkatout=CTc/ragadkatout
+ template1      | ragadkatout | UTF8     | C       | C     | =c/ragadkatout             +
+                |             |          |         |       | ragadkatout=CTc/ragadkatout
+ wholemi        | ragadkatout | UTF8     | C       | C     | 
+(7 rows)
+
