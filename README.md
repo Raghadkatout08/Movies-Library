@@ -6,7 +6,7 @@
 
 <!-- WRRC -->
 ## WRRC
-![WRRC](./assets/WRRC_WithDB.png)
+![WRRC](./assets/WRRC_WithDB_Delete_Put.png)
 
 <!-- ![WRRC](./assets/WRRC.png)
 <!-- WRRC Example -->

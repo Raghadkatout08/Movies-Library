@@ -26,6 +26,9 @@ app.get('/videos', videosHandler)
 app.get('/list', listHandler)
 app.post('/addMovie', addMovieHandler)
 app.get('/getMovies', getMoviesHandler)
+app.patch('/UPDATE/:MovieId', updateIDMovieHandler)
+app.delete('/DELETE/:id', DeleteIDMovieHandler)
+app.get('/getMovie/:id', getMovieByIdHandler)
 
 
 
@@ -180,10 +183,10 @@ function listHandler(req, res) {
 function addMovieHandler(req, res) {
     console.log(req.body)
 
-    const { id, title, release_date, poster_path, overview } = req.body;
+    const { id, title, release_date, poster_path, overview, comment } = req.body;
 
-    const sql = 'INSERT INTO movies_trending(id, title, release_date, poster_path, overview) VALUES ($1, $2, $3, $4, $5) RETURNING *';
-    const values = [id, title, release_date, poster_path, overview];
+    const sql = 'INSERT INTO movies_trending(id, title, release_date, poster_path, overview, comment) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
+    const values = [id, title, release_date, poster_path, overview, comment];
 
     client.query(sql, values)
         .then((result) => {
@@ -204,6 +207,60 @@ function getMoviesHandler(req, res) {
         .then((result) => {
             const data = result.rows
             res.json(data)
+        })
+        .catch((error) => {
+            console.error('Error executing query:', error);
+            res.status(500).send('Internal Server Error')
+        })
+}
+
+//Update ID Movie Page
+//http://localhost:3001/UPDATE/:id
+function updateIDMovieHandler(req, res) {
+    let movieId = req.params.MovieId;
+    let { comment } = req.body
+    let sql = 'UPDATE movies_trending SET comment=$1 WHERE id=$2;';
+    let values = [comment, movieId]
+
+    client.query(sql, values)
+        .then(result => {
+            res.send('successfully Updated')
+        })
+        .catch((error) => {
+            console.error('Error executing query:', error);
+            res.status(500).send('Internal Server Error')
+        })
+}
+
+//Delete By ID Movie Page
+//http://localhost:3001/DELETE/:MovieId
+function DeleteIDMovieHandler(req, res) {
+    console.log(req.params)
+    let {id} = req.params;
+    let sql = 'DELETE FROM movies_trending WHERE id=$1;';
+    let values = [id]
+    client.query(sql,values)
+        .then(result => {
+            res.status(204).send('Successfully Deletes')
+        })
+        .catch((error) => {
+            console.error('Error executing query:', error);
+            res.status(500).send('Internal Server Error')
+        })
+}
+
+//get Movie By ID
+//http://localhost:3001/getMovie/:id
+function getMovieByIdHandler(req, res)
+{
+    let movieId = req.params.id;
+
+    let sql = 'SELECT * FROM movies_trending WHERE id=$1;';
+    let values = [movieId]
+    client.query(sql, values)
+        .then((result) => {
+            const data = result.rows;
+            res.json(data);
         })
         .catch((error) => {
             console.error('Error executing query:', error);
