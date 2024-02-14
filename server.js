@@ -9,10 +9,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3005;
 const api_key = process.env.API_KEY;
 const { Client } = require('pg');
-const url = `postgres://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@localhost:5432/movies_library`;
+// const url = `postgres://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@localhost:5432/movies_library`;
+const url = process.env.DATABASE_URL
 const client = new Client(url)
 
 
