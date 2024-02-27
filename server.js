@@ -82,7 +82,8 @@ function trendingHandler(req, res) {
 
             if (Array.isArray(trends)) {
                 let trendData = trends.map(trend => {
-                    return new Movies(trend.id, trend.title, trend.release_date, trend.poster_path, trend.overview)
+                    const imgURL ='https://image.tmdb.org/t/p/w500/';
+                    return new Movies(trend.id, trend.title, trend.release_date, imgURL+trend.poster_path, trend.overview)
                 })
                 res.json(trendData)
             } else {
