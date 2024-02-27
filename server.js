@@ -235,13 +235,13 @@ function updateIDMovieHandler(req, res) {
 }
 
 //Delete By ID Movie Page
-//http://localhost:3001/DELETE/:MovieId
+//http://localhost:3001/DELETE/:id
 function DeleteIDMovieHandler(req, res) {
     console.log(req.params)
-    let {id} = req.params;
+    let { id } = req.params;
     let sql = 'DELETE FROM movies_trending WHERE id=$1;';
-    let values = [id]
-    client.query(sql,values)
+    let values = [id];
+    client.query(sql, values)
         .then(result => {
             res.status(204).send('Successfully Deletes')
         })
